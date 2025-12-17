@@ -39,19 +39,19 @@ class philipsTvRemote extends LitElement {
                   ? html` <span class="title"> ${this.config.name} </span> `
                   : ""}
                   <div class="grid-container-power"  style="--remotewidth: ${remoteWidth}">
-                      <button class="btn-flat flat-high ripple" @click=${() => this._command("List")}><ha-icon icon="mdi:format-list-numbered"/></button>
+                      <div></div>
                       ${stateObj.state === 'off' ? html`
                       <button class="btn ripple" @click=${() => this._turn_on()}><ha-icon icon="mdi:power" style="color: ${textColor};"/></button>
                       ` : html`
                       <button class="btn ripple" @click=${() => this._command("Standby")}><ha-icon icon="mdi:power" style="color: red;"/></button>
                       `}
-                      <button class="btn-flat flat-high ripple" @click=${() => this._show_keypad = !this._show_keypad}>123</button>
+                      <div></div>
                   </div>
 <!-- ################################# PAIR ROW ################################# -->
                   <div class="grid-container-pair">
-                      <button class="btn-flat flat-high ripple" @click=${() => this._command("Source")}><ha-icon icon="mdi:import"/></button>
-                      <button class="btn-flat flat-high ripple" @click=${() => this._open_voice_input()}><ha-icon icon="mdi:microphone-message"/></button>
-                      <button class="btn-flat flat-high ripple" @click=${() => this._alexa_settings()}><ha-icon icon="mdi:cog"/></button>
+                      <button class="btn_source ripple" @click=${() => this._command("Source")}><ha-icon icon="mdi:import"/></button>
+                      <button class="btn_source ripple" @click=${() => this._open_voice_input()}><ha-icon icon="mdi:microphone-message"/></button>
+                      <button class="btn_source ripple" @click=${() => this._alexa_settings()}><ha-icon icon="mdi:cog"/></button>
                   </div>
 
                  ${this._show_inputs ? html`
@@ -117,13 +117,13 @@ class philipsTvRemote extends LitElement {
 <!-- ################################# VOLUME/CHANNEL CONTROL ################################# -->
                   <div class="grid-container-volume-channel-control" >
                       <button class="btn ripple"  style="border-radius: 50% 50% 0px 0px; margin: 0px auto 0px auto; height: 100%;" @click=${() => this._command("VolumeUp")}><ha-icon icon="mdi:plus"/></button>
-                      <button class="btn-flat flat-high ripple" style="margin-top: 0px; height: 50%;" @click=${() => this._command("Home")}><ha-icon icon="mdi:home"></button>
+                      <button class="btn-flat flat-high ripple" style="margin-top: 0px; height: 50%;" @click=${() => this._show_keypad = !this._show_keypad}>123</button>
                       <button class="btn ripple" style="border-radius: 50% 50% 0px 0px; margin: 0px auto 0px auto; height: 100%;" @click=${() => this._command("ChannelStepUp")}><ha-icon icon="mdi:chevron-up"/></button>
                       <button class="btn" style="border-radius: 0px; cursor: default; margin: 0px auto 0px auto; height: 100%;"><ha-icon icon="${stateObj.attributes.is_volume_muted === true ? 'mdi:volume-off' : 'mdi:volume-high'}"/></button>
                       <button class="btn ripple" Style="color:${stateObj.attributes.is_volume_muted === true ? 'red' : ''}; height: 100%;" @click=${() => this._command("Mute")}><span class="${stateObj.attributes.is_volume_muted === true ? 'blink' : ''}"><ha-icon icon="mdi:volume-mute"></span></button>
                       <button class="btn" style="border-radius: 0px; cursor: default; margin: 0px auto 0px auto; height: 100%;"><ha-icon icon="mdi:parking"/></button>
                       <button class="btn ripple" style="border-radius: 0px 0px 50% 50%;  margin: 0px auto 0px auto; height: 100%;" @click=${() => this._command("VolumeDown")}><ha-icon icon="mdi:minus"/></button>
-                      <div></div>
+                      <button class="btn-flat flat-high ripple" style="margin-top: 0px; height: 50%;" @click=${() => this._command("List")}><ha-icon icon="mdi:format-list-numbered"/></button>
                       <button class="btn ripple" style="border-radius: 0px 0px 50% 50%;  margin: 0px auto 0px auto; height: 100%;"  @click=${() => this._command("ChannelStepDown")}><ha-icon icon="mdi:chevron-down"/></button>
                   </div>
 
@@ -303,8 +303,8 @@ class philipsTvRemote extends LitElement {
            grid-template-rows: 1fr;
            background-color: transparent;
            width: var(--remotewidth);
-           height: calc(var(--remotewidth) / 3.5);
-           margin-top: calc(var(--remotewidth) / 20);
+           height: calc(var(--remotewidth) / 3);
+           margin-top: calc(var(--remotewidth) / 30);
       }
        .grid-container-nav-bottom {
            display: grid;
@@ -312,8 +312,8 @@ class philipsTvRemote extends LitElement {
            grid-template-rows: 1fr;
            background-color: transparent;
            width: var(--remotewidth);
-           height: calc(var(--remotewidth) / 3.5);
-           margin-top: calc(var(--remotewidth) / 20);
+           height: calc(var(--remotewidth) / 3);
+           margin-top: calc(var(--remotewidth) / 30);
       }
        .grid-container-cursor {
            display: grid;
