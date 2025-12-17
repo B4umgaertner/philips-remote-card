@@ -90,6 +90,12 @@ class philipsTvRemote extends LitElement {
                         <button class="btn-keypad"></button>
                   </div>
   <!-- ################################# keypad end ############################## --> 
+<!-- ################################# BACK/EXIT/HOME ROW ################################# -->
+                  <div class="grid-container-nav-bottom">
+                      <button class="btn ripple" @click=${() => this._command("Back")}><ha-icon icon="mdi:arrow-left"/></button>
+                      <button class="btn-flat flat-high ripple" @click=${() => this._command("Exit")}>EXIT</button>
+                      <button class="btn ripple" @click=${() => this._command("Home")}><ha-icon icon="mdi:home"/></button>
+                  </div>
                  ` : html`
 <!-- ################################# DIRECTION PAD ################################# -->
                   <div class="grid-container-cursor">
@@ -303,8 +309,9 @@ class philipsTvRemote extends LitElement {
            grid-template-rows: 1fr;
            background-color: transparent;
            width: var(--remotewidth);
-           height: calc(var(--remotewidth) / 3);
-           margin-top: calc(var(--remotewidth) / 30);
+           height: calc(var(--remotewidth) / 2.5);
+           margin-top: calc(var(--remotewidth) / 60);
+           margin-bottom: calc(var(--remotewidth) / 60);
       }
        .grid-container-nav-bottom {
            display: grid;
@@ -335,6 +342,8 @@ class philipsTvRemote extends LitElement {
            height: var(--remotewidth);
            width: calc(var(--remotewidth) - 10%);
            margin: auto;
+           margin-top: calc(var(--remotewidth) / 60);
+           margin-bottom: calc(var(--remotewidth) / 30);
       }
        .grid-container-input {
            display: grid;
@@ -373,7 +382,7 @@ class philipsTvRemote extends LitElement {
            width: var(--remotewidth);
            height: calc(var(--remotewidth) / 1.4);
            overflow: hidden;
-           margin-top: calc(var(--remotewidth) / 12);
+           margin-top: calc(var(--remotewidth) / 30);
           ;
       }
        .grid-container-media-control {
@@ -514,11 +523,11 @@ class philipsTvRemote extends LitElement {
        .btn_source {
            background-color: var(--remote-button-color);
            color: var(--remote-text-color);
-           width: calc(var(--remotewidth) / 5.9);
-           height: calc(var(--remotewidth) / 8.125);
+           width: calc(var(--remotewidth) / 4.5);
+           height: calc(var(--remotewidth) / 4.5);
            border-width: 0px;
            border-radius: calc(var(--remotewidth) / 10);
-           margin: calc(var(--remotewidth) / 18.57) auto calc(var(--remotewidth) / 20) auto;
+           margin: auto;
            place-items: center;
            cursor: pointer;
       }
