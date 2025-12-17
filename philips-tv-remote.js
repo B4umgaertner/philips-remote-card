@@ -50,8 +50,8 @@ class philipsTvRemote extends LitElement {
 <!-- ################################# PAIR ROW ################################# -->
                   <div class="grid-container-pair">
                       <button class="btn-flat flat-high ripple" @click=${() => this._command("Source")}><ha-icon icon="mdi:import"/></button>
-                      <button></button>
-                      <button class="btn-flat flat-high ripple" @click=${() => this._command("Options")}><ha-icon icon="mdi:cog"/></button>
+                      <button class="btn-flat flat-high ripple" @click=${() => this._open_voice_input()}><ha-icon icon="mdi:microphone-message"/></button>
+                      <button class="btn-flat flat-high ripple" @click=${() => this._alexa_settings()}><ha-icon icon="mdi:cog"/></button>
                   </div>
 
                  ${this._show_inputs ? html`
@@ -102,14 +102,14 @@ class philipsTvRemote extends LitElement {
                       <button class="btn ripple item_2_sx" style="background-color: transparent;" @click=${() => this._command("CursorLeft")}><ha-icon icon="mdi:chevron-left"/></button>
                       <button class="btn bnt_ok ripple item_2_c" style="border: solid 2px ${backgroundColor}"  @click=${() => this._command("Confirm")}>OK</button>
                       <button class="btn ripple item_right" style="background-color: transparent;" @click=${() => this._command("CursorRight")}><ha-icon icon="mdi:chevron-right"/></button>
-                      <button class="btn ripple item_back" @click=${() => this._command("Options")}>OPTIONS</button>
+                      <button class="btn ripple item_back" @click=${() => this._command("Options")}>OPTION</button>
                       <button class="btn ripple item_down" style="background-color: transparent;" @click=${() => this._command("CursorDown")}><ha-icon icon="mdi:chevron-down"/></button>
-                      <button class="btn ripple item_exit" @click=${() => this._command("Subtitle")}>SUBTITLE</button>
+                      <button class="btn ripple item_exit" @click=${() => this._command("Subtitle")}><ha-icon icon="mdi:subtitles"/></button>
                     </div>
 <!-- ################################# BACK/EXIT/HOME ROW ################################# -->
                   <div class="grid-container-nav-bottom">
                       <button class="btn ripple" @click=${() => this._command("Back")}><ha-icon icon="mdi:arrow-left"/></button>
-                      <button class="btn-flat flat-high ripple" @click=${() => this._command("Exit")}>TV/EXIT</button>
+                      <button class="btn-flat flat-high ripple" @click=${() => this._command("Exit")}>EXIT</button>
                       <button class="btn ripple" @click=${() => this._command("Home")}><ha-icon icon="mdi:home"/></button>
                   </div>
                   `}
@@ -123,7 +123,7 @@ class philipsTvRemote extends LitElement {
                       <button class="btn ripple" Style="color:${stateObj.attributes.is_volume_muted === true ? 'red' : ''}; height: 100%;" @click=${() => this._command("Mute")}><span class="${stateObj.attributes.is_volume_muted === true ? 'blink' : ''}"><ha-icon icon="mdi:volume-mute"></span></button>
                       <button class="btn" style="border-radius: 0px; cursor: default; margin: 0px auto 0px auto; height: 100%;"><ha-icon icon="mdi:parking"/></button>
                       <button class="btn ripple" style="border-radius: 0px 0px 50% 50%;  margin: 0px auto 0px auto; height: 100%;" @click=${() => this._command("VolumeDown")}><ha-icon icon="mdi:minus"/></button>
-                      <button class="btn-flat flat-high ripple" style="margin-bottom: 0px; height: 50%;" @click=${() => this._command("Info")}><ha-icon icon="mdi:information-variant"/></button>
+                      <div></div>
                       <button class="btn ripple" style="border-radius: 0px 0px 50% 50%;  margin: 0px auto 0px auto; height: 100%;"  @click=${() => this._command("ChannelStepDown")}><ha-icon icon="mdi:chevron-down"/></button>
                   </div>
 
@@ -138,10 +138,10 @@ class philipsTvRemote extends LitElement {
                   </div> 
 <!-- ################################# COLORED BUTTONS ################################# -->
                   <div class="grid-container-color_btn">
-                      <button class="btn-color ripple" style="background-color: red;" @click=${() => this._command("RedColour")}></button>
-                      <button class="btn-color ripple" style="background-color: green;" @click=${() => this._command("GreenColour")}></button>
-                      <button class="btn-color ripple" style="background-color: yellow;" @click=${() => this._command("YellowColour")}></button>
-                      <button class="btn-color ripple" style="background-color: blue;" @click=${() => this._command("BlueColour")}></button>
+                      <button class="btn-color ripple" style="background-color: red; height: calc(var(--remotewidth) / 12);" @click=${e => this._command("RedColour")}></button>
+                      <button class="btn-color ripple" style="background-color: green; height: calc(var(--remotewidth) / 12);" @click=${e => this._command("GreenColour")}></button>
+                      <button class="btn-color ripple" style="background-color: yellow; height: calc(var(--remotewidth) / 12);" @click=${e => this._command("YellowColour")}></button>
+                      <button class="btn-color ripple" style="background-color: blue; height: calc(var(--remotewidth) / 12);" @click=${e => this._command("BlueColour")}></button>
                   </div>
 <!-- ################################# MEDIA CONTROL END ################################# -->
                   </div>
@@ -195,9 +195,29 @@ class philipsTvRemote extends LitElement {
             source: source
         });
     }
+    _alexa_settings() {
+        const deviceId = this.config.alexa_device_id;
+        this.hass.callService("alexa_devices", "send_text_command", {
+            text_command: "Einstellungen öffnen",
+            device_id: deviceId
+        });
+    }
+    _open_voice_input() {
+        const input = prompt("Text für Alexa eingeben:");
+        if (input && input.trim() !== "") {
+            const deviceId = this.config.alexa_device_id;
+            this.hass.callService("alexa_devices", "send_text_command", {
+                text_command: input,
+                device_id: deviceId
+            });
+        }
+    }
 
     setConfig(config) {
         if (!config.entity) {
+            throw new Error("Invalid configuration");
+        }
+        if (!config.alexa_device_id) {
             throw new Error("Invalid configuration");
         }
         if (!config.remote) {
@@ -277,14 +297,6 @@ class philipsTvRemote extends LitElement {
            width: var(--remotewidth);
            height: calc(var(--remotewidth) / 3);
       }
-       .grid-container-ambilight {
-           display: grid;
-           grid-template-columns: 1fr;
-           background-color: transparent;
-           width: var(--remotewidth);
-           height: calc(var(--remotewidth) / 6);
-           margin-top: calc(var(--remotewidth) / 20);
-      }
        .grid-container-pair {
            display: grid;
            grid-template-columns: 1fr 1fr 1fr;
@@ -293,18 +305,6 @@ class philipsTvRemote extends LitElement {
            width: var(--remotewidth);
            height: calc(var(--remotewidth) / 3.5);
            margin-top: calc(var(--remotewidth) / 20);
-      }
-       .grid-container-cursor-new {
-           display: grid;
-           grid-template-columns: 1fr 1fr 1fr;
-           grid-template-rows: 1fr 1fr 1fr;
-           background-color: var(--remote-button-color);
-           border-radius: calc(var(--remotewidth) / 8);
-           padding: calc(var(--remotewidth) / 20);
-           width: calc(var(--remotewidth) - 10%);
-           height: auto;
-           margin: calc(var(--remotewidth) / 15) auto;
-           gap: calc(var(--remotewidth) / 30);
       }
        .grid-container-nav-bottom {
            display: grid;
@@ -360,10 +360,9 @@ class philipsTvRemote extends LitElement {
             grid-template-rows: auto;
             background-color: transparent;
             width: calc(var(--remotewidth) / 1.03);
-            height: calc(var(--remotewidth) / 8);
+            height: calc(var(--remotewidth) / 10);
             overflow: hidden;
-            margin: calc(var(--remotewidth) / 12) auto;
-            gap: calc(var(--remotewidth) / 30);
+            margin: auto;
         }
 
         .grid-container-volume-channel-control {
@@ -486,27 +485,6 @@ class philipsTvRemote extends LitElement {
            display: inline-block;
            cursor: pointer;
       }
-       .btn-small {
-           background-color: transparent;
-           color: var(--remote-text-color);
-           font-size: calc(var(--remotewidth) / 28);
-           border-width: 0px;
-           border-radius: calc(var(--remotewidth) / 15);
-           cursor: pointer;
-           white-space: nowrap;
-           padding: calc(var(--remotewidth) / 40);
-      }
-       .btn-pair-center {
-           width: 60%;
-           height: 60%;
-      }
-       .flat-ambi {
-           width: 90%;
-           height: 100%;
-           font-size: calc(var(--remotewidth) / 20);
-           font-weight: bold;
-           letter-spacing: 2px;
-      }
        .bnt-input-back {
            grid-column-start: 3;
            grid-column-end: 4;
@@ -547,10 +525,10 @@ class philipsTvRemote extends LitElement {
         .btn-color {
             background-color: var(--remote-button-color);
             color: var(--remote-text-color);
-            width: 100%;
-            height: 100%;
+            width: 70%;
+            height: 55%;
             border-width: 0px;
-            border-radius: calc(var(--remotewidth) / 12);
+            border-radius: calc(var(--remotewidth) / 10);
             margin: auto;
             place-items: center;
             cursor: pointer;
