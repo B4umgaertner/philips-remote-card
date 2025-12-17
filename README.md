@@ -3,7 +3,7 @@ Philips TV remote card for home assistant. Based on [this repository](https://gi
 
 [![hacs_badge](https://img.shields.io/badge/HACS-Default-41BDF5.svg?style=for-the-badge)](https://github.com/hacs/integration)
 
-[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=B4umgaertner&category=Plugin&repository=https%3A%2F%2Fgithub.com%2FB4umgaertner%2Fphilips-tv-remote-hacs)
+[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=B4umgaertner&category=Plugin&repository=philips-remote-card)
 
 [![hacs_badge](https://img.shields.io/github/v/release/B4umgaertner/philips-tv-remote-card?color=green&style=for-the-badge)](https://github.com/B4umgaertner/philips-tv-remote-hacs/releases/latest)
 
@@ -31,7 +31,7 @@ if you wanna use channels:
 
 you can start from here:
 
-[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=B4umgaertner&category=Plugin&repository=https%3A%2F%2Fgithub.com%2FB4umgaertner%2Fphilips-tv-remote-hacs)
+[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=B4umgaertner&category=Plugin&repository=philips-remote-card)
 
 ### HACS Card install
 - Open HACS
