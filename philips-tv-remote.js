@@ -102,13 +102,13 @@ class philipsTvRemote extends LitElement {
                   <div class="shape">
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 79"><path d="m 30 15 a 10 10 0 0 1 20 0 a 15 15 0 0 0 15 15 a 10 10 0 0 1 0 20 a 15 15 0 0 0 -15 15 a 10 10 0 0 1 -20 0 a 15 15 0 0 0 -15 -15 a 10 10 0 0 1 0 -20 a 15 15 0 0 0 15 -15" fill="var(--remote-button-color)" stroke="#000000" stroke-width="0" /></svg>
                     </div> 
-                    <button class="btn ripple item_menu" @click=${() => this._command("TvGuide")}>TV GUIDE</button>
+                    <button class="btn btn-text ripple item_menu" @click=${() => this._command("TvGuide")}>TV GUIDE</button>
                       <button class="btn ripple item_up" style="background-color: transparent;" @click=${() => this._command("CursorUp")}><ha-icon icon="mdi:chevron-up"/></button>
-                      <button class="btn ripple item_input" @click=${() => this._command("Info")}>INFO</button>
+                      <button class="btn btn-text ripple item_input" @click=${() => this._command("Info")}>INFO</button>
                       <button class="btn ripple item_2_sx" style="background-color: transparent;" @click=${() => this._command("CursorLeft")}><ha-icon icon="mdi:chevron-left"/></button>
                       <button class="btn bnt_ok ripple item_2_c" style="border: solid 2px ${backgroundColor}"  @click=${() => this._command("Confirm")}>OK</button>
                       <button class="btn ripple item_right" style="background-color: transparent;" @click=${() => this._command("CursorRight")}><ha-icon icon="mdi:chevron-right"/></button>
-                      <button class="btn ripple item_back" @click=${() => this._command("Options")}>OPTION</button>
+                      <button class="btn btn-text ripple item_back" @click=${() => this._command("Options")}>OPTION</button>
                       <button class="btn ripple item_down" style="background-color: transparent;" @click=${() => this._command("CursorDown")}><ha-icon icon="mdi:chevron-down"/></button>
                       <button class="btn ripple item_exit" @click=${() => this._command("Subtitle")}><ha-icon icon="mdi:subtitles"/></button>
                     </div>
@@ -490,10 +490,14 @@ class philipsTvRemote extends LitElement {
            border-width: 0px;
            border-radius: 50%;
            margin: auto;
+           place-items: center;
+           display: inline-block;
+           cursor: pointer;
+      }
+       .btn-text {
            display: flex;
            justify-content: center;
            align-items: center;
-           cursor: pointer;
       }
        .bnt-input-back {
            grid-column-start: 3;
