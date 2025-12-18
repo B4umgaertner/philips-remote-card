@@ -490,8 +490,9 @@ class philipsTvRemote extends LitElement {
            border-width: 0px;
            border-radius: 50%;
            margin: auto;
-           place-items: center;
-           display: inline-block;
+           display: flex;
+           justify-content: center;
+           align-items: center;
            cursor: pointer;
       }
        .bnt-input-back {
